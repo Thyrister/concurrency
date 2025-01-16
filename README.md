@@ -118,7 +118,7 @@ for(int i=0; i < 10; i++) {
 ```
 
 
-## Need for <jthread> Library
+## Need for `<jthread>` Library
 The `<jthread>` library in C++ simplifies thread management and solves issues associated with std::thread. It addresses automatic joining, cancellation, and thread resource management. Here's how jthread differs from std::thread:
 
 Automatic joining of threads after execution
