@@ -1,13 +1,5 @@
 # Concurrency
-Multihreading/Multiprocessing in cpp
 
-
-The use of multithreading library in cpp.
-What are libraries, modules and code used to understand this concept.
-
-1. <thread>
-2. <jthread>
-3. <future>
 
 # Difference between concurrency and parallelism:
 
