@@ -23,7 +23,7 @@ For example, in concurrency, at any moment, the instruction pointer of a thread 
 # <threading>
 This library in cpp allows creation/managing/deletion of new threads.
 
-##############################################
+
 #include <iostream>
 #include <thread>
 using namespace std;
@@ -41,7 +41,6 @@ int main()
     cout<<"The main process is complete, exiting now"<<endl;
     return 0;
 }
-##############################################
 
 
 
