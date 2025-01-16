@@ -1,7 +1,7 @@
-# Concurrency
+# Multiprocessing and Multiprogramming
 
 
-# Difference between concurrency and parallelism:
+# Difference between concurrency(multiprogramming) and parallelism(multiprocessing):
 
 Concurrency
 Definition: Concurrency refers to the ability of a system to manage multiple tasks (processes or threads) at the same time, giving the illusion of simultaneous execution. However, these tasks might not actually be executing at the same moment. Instead, the CPU switches between tasks rapidly (context switching).
