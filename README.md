@@ -20,4 +20,29 @@ Parallelism, on the other hand, involves multiple processors executing multiple 
 For example, in concurrency, at any moment, the instruction pointer of a thread might be at a different address because threads share resources. In parallelism, multiple threads or processes can execute genuinely at the same time, often working on different parts of a task across different processors.
 
 
-Mutltithreading is not just about spawning new threads, but to manage them concurrently.
+# <threading>
+This library in cpp allows creation/managing/deletion of new threads.
+
+##############################################
+#include <iostream>
+#include <thread>
+using namespace std;
+
+void threadFn(int x) {
+    cout<<"The thread-id is: "<<this_thread::get_id()<<endl;
+    cout<<"The argument passed is: "<<x<<endl;
+    return;
+}
+
+int main()
+{
+    std::thread t(threadFn, 10);
+    t.join();
+    cout<<"The main process is complete, exiting now"<<endl;
+    return 0;
+}
+##############################################
+
+
+
+
