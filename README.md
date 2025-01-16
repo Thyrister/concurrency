@@ -449,3 +449,17 @@ int main() {
     return 0;
 }
 ```
+
+## Type of locks to handle concurrency
+
+1. Mutual Exclusion
+2. Recursive Lock (Reentrant Mutex)
+3. Read/Write Lock
+4. Spinlock
+5. Timed Lock
+6. Fair Lock
+7. Bias Lock
+8. Deadlock-free
+9. Transactional Lock
+10. Semaphores
+11. Distributed Lock
