@@ -64,12 +64,12 @@ int main() {
 
 ```
 
-Lambda Functions:
+## Lambda Functions:
 Lambda functions can be declared in variables, inline functions, etc.
 
 Example Code:
-cpp
-Copy code
+
+```cpp
 #include <iostream>
 #include <thread>
 using namespace std;
@@ -84,15 +84,18 @@ int main() {
     cout << "The main process is complete, exiting now" << endl;
     return 0;
 }
-Concurrency vs Parallelism in Threading
+
+```
+
+
+## Concurrency vs Parallelism in Threading
 Creating threads does not mean that the code is executing in parallel; they must be managed to work concurrently.
 
 Consider the difference between these two snippets:
 
 First Snippet:
 
-cpp
-Copy code
+```cpp
 for(int i=0; i < 10; i++) {
     threads.push_back(std::thread(lambda, i));
 }
@@ -100,16 +103,23 @@ for(int i=0; i < 10; i++) {
 for(int i=0; i < 10; i++) {
     threads[i].join();
 }
+
+```
+
 Second Snippet:
 
-cpp
-Copy code
+
+```cpp
 for(int i=0; i < 10; i++) {
     threads.push_back(std::thread(lambda, i));
     threads[i].join();
 }
-Need for <jthread> Library
-The <jthread> library in C++ simplifies thread management and solves issues associated with std::thread. It addresses automatic joining, cancellation, and thread resource management. Here's how jthread differs from std::thread:
+
+```
+
+
+## Need for <jthread> Library
+The `<jthread>` library in C++ simplifies thread management and solves issues associated with std::thread. It addresses automatic joining, cancellation, and thread resource management. Here's how jthread differs from std::thread:
 
 Automatic joining of threads after execution
 No need for manual joining or detaching threads
@@ -118,8 +128,7 @@ Need for <mutex> Library
 The mutex library helps avoid data races and data inconsistency when it comes to shared resources between multiple threads. Here's an example:
 
 Code with Potential Data Race:
-cpp
-Copy code
+```cpp
 void increment() {
     // gLock.lock();
     critical_resource = critical_resource + 1;
@@ -138,11 +147,13 @@ int main() {
     
     return 0;
 }
+
+```
+
 Without a lock, two threads may read the same value of critical_resource and both increment it, causing data inconsistency.
 
 Fixed Code with Mutex:
-cpp
-Copy code
+```cpp
 mutex gLock;
 static int critical_resource = 0;
 
@@ -163,12 +174,14 @@ int main() {
     
     return 0;
 }
-Atomic Variables
+
+```
+
+## Atomic Variables
 If you don't want to manage the mutex lock but still need to read/write shared data, you can use atomic variables.
 
 Code with Atomic Variable:
-cpp
-Copy code
+```cpp
 static std::atomic<int> shared_value = 0;
 
 void shared_value_increment() {
@@ -188,12 +201,14 @@ int main() {
     std::cout << "Shared value: " << shared_value << std::endl;
     return 0;
 }
-Conditional Variables
+
+```
+
+## Conditional Variables
 To save unnecessary computation when checking for mutex lock, we use conditional variables. If a thread is already holding a mutex, others wait for it to be released, and once released, it can notify other waiting threads to resume.
 
 Example with Conditional Variable:
-cpp
-Copy code
+```cpp
 #include <iostream>
 #include <thread>
 #include <mutex>
@@ -227,12 +242,14 @@ int main() {
 
     return 0;
 }
-Asynchronous Operations
+
+```
+
+## Asynchronous Operations
 Asynchronous functions allow you to call a function and continue with the remaining code without waiting for the result. The <future> library is used to achieve this functionality.
 
 Example with Future:
-cpp
-Copy code
+```cpp
 #include <iostream>
 #include <future>
 #include <thread>
@@ -266,11 +283,14 @@ int main() {
     std::cout << "Program is complete" << std::endl;
     return 0;
 }
-Example: SFML Grid Update with Threads
+
+```
+
+
+## Example: SFML Grid Update with Threads
 Here’s an example that uses threads to update a grid and draw shapes in SFML.
 
-cpp
-Copy code
+```cpp
 #include <iostream>
 #include <thread>
 #include <vector>
@@ -355,3 +375,4 @@ int main() {
     std::cout << "Program Terminating" << std::endl;
     return 0;
 }
+```
