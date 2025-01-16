@@ -376,3 +376,76 @@ int main() {
     return 0;
 }
 ```
+
+
+## Semaphores
+They are quite similar to mutex used as synchronization tool for multithreading to access the shared resources.
+There are 2 types of semaphores,
+1. Binary - Same as mutex with only 2 possible value 0,1
+2. Coutning - allows multiple threads to access at same time, counter like behaviour.
+
+
+Why Use Semaphores?
+Semaphores are useful for scenarios where:
+1. You need to synchronize access to shared resources (e.g., producer-consumer problems).
+2. You want to limit the number of concurrent operations (e.g., controlling the number of threads accessing a resource).
+
+Example code,
+
+```cpp
+#include <iostream>
+#include <thread>
+#include <semaphore>
+#include <queue>
+#include <mutex>
+#include <vector>
+#include <chrono>
+
+std::queue<int> data_queue;           // Shared resource
+std::binary_semaphore empty_slots(1); // Binary semaphore for producer
+std::counting_semaphore<10> full_slots(0); // Counting semaphore for consumers
+std::mutex queue_mutex;               // Mutex for consumer synchronization
+
+void producer() {
+    for (int i = 1; i <= 10; ++i) {
+        empty_slots.acquire(); // Wait for an empty slot
+        {
+            std::lock_guard<std::mutex> lock(queue_mutex); // Protect access to data_queue
+            data_queue.push(i); // Produce an item
+            std::cout << "Produced: " << i << "\n";
+        }
+        full_slots.release(); // Signal that an item is available
+        std::this_thread::sleep_for(std::chrono::milliseconds(100)); // Simulate production delay
+    }
+}
+
+void consumer(int id) {
+    while (true) {
+        full_slots.acquire(); // Wait for an available item
+        int item;
+        {
+            std::lock_guard<std::mutex> lock(queue_mutex); // Protect access to data_queue
+            if (data_queue.empty()) break; // Exit if no more items (for safety)
+            item = data_queue.front();
+            data_queue.pop(); // Consume the item
+        }
+        std::cout << "Consumer " << id << " consumed: " << item << "\n";
+        empty_slots.release(); // Signal that a slot is empty
+        std::this_thread::sleep_for(std::chrono::milliseconds(150)); // Simulate processing delay
+    }
+}
+
+int main() {
+    std::thread producer_thread(producer);
+    std::vector<std::thread> consumers;
+
+    for (int i = 1; i <= 2; ++i) { // Two consumers
+        consumers.emplace_back(consumer, i);
+    }
+
+    producer_thread.join();
+    for (auto& c : consumers) c.join();
+
+    return 0;
+}
+```
