@@ -490,14 +490,19 @@ The CPU ensures atomicity and consistency using hardware-level mechanisms.
 
 What Happens in Atomic Operations?
 The CPU locks the memory location temporarily for the operation.
+
 Examples of atomic instructions:
-Compare-and-Swap (CAS):
+
+Compare-and-Swap (CAS) --> Read about implementation:
 Compares the value of a memory location to an expected value and, if they match, swaps it with a new value.
 Executed atomically in one CPU instruction cycle.
-Test-and-Set:
+
+Test-and-Set  --> Read about implementation:
 Reads a memory location and sets it to a specific value atomically, returning the old value.
-Fetch-and-Increment:
+
+Fetch-and-Increment  --> Read about implementation:
 Atomically increments a memory location and returns the previous value.
+
 Why It’s Unique:
 During the execution of an atomic operation, the CPU prevents other threads or processes from accessing the same memory location, ensuring thread safety without additional synchronization.
 
