@@ -463,3 +463,86 @@ int main() {
 9. Transactional Lock
 10. Semaphores
 11. Distributed Lock
+
+
+
+## Locking and Unlocking
+
+Atomic Operations - The operations which cant be divisible further.
+
+Modern CPUs provide hardware support to make locking efficient and avoid race conditions:
+
+Atomic Instructions:
+Operations like compare-and-swap (CAS), test-and-set, or fetch-and-add are used to manipulate the lock variable atomically, ensuring no two threads can modify it simultaneously.
+
+Memory Barriers (Fences):
+Memory barriers ensure that read and write operations to shared variables are not reordered by the CPU or compiler, preserving consistency in multi-threaded environments.
+Cache Coherency:
+
+The lock variable is typically stored in CPU cache. The cache coherency protocol (e.g., MESI) ensures that changes to the lock variable are visible to all processors.
+
+In summary, when a process acquires a lock on a critical section:
+The lock variable is updated atomically.
+The kernel might get involved if the thread must wait for the lock.
+The CPU ensures atomicity and consistency using hardware-level mechanisms. 
+
+## Atomic Operations
+
+What Happens in Atomic Operations?
+The CPU locks the memory location temporarily for the operation.
+Examples of atomic instructions:
+Compare-and-Swap (CAS):
+Compares the value of a memory location to an expected value and, if they match, swaps it with a new value.
+Executed atomically in one CPU instruction cycle.
+Test-and-Set:
+Reads a memory location and sets it to a specific value atomically, returning the old value.
+Fetch-and-Increment:
+Atomically increments a memory location and returns the previous value.
+Why It’s Unique:
+During the execution of an atomic operation, the CPU prevents other threads or processes from accessing the same memory location, ensuring thread safety without additional synchronization.
+
+## Memory Bus and Cache Lines in play
+
+Memory Bus
+The memory bus is a communication pathway that connects the CPU to the system memory (RAM). It plays a key role in transferring data between the CPU and memory during normal process execution.
+
+Components of the Memory Bus
+Address Bus: Carries the memory address of the data being accessed.
+Data Bus: Transfers the actual data between the CPU and memory.
+Control Bus: Manages signals for operations like read, write, and interrupts.
+How the Memory Bus Comes into Play in Normal Execution
+During normal execution, when a process needs to read or write data from/to memory:
+
+CPU Generates an Address:
+The CPU sends the memory address of the data to the address bus.
+Control Signals:
+The control bus indicates whether the operation is a read or write.
+Data Transfer:
+The data bus transfers the data between the CPU and memory.
+Example:
+
+If a CPU instruction requires reading a variable stored in memory:
+The address bus carries the variable's memory location.
+The control bus signals a read operation.
+The data bus retrieves the variable's value from RAM to the CPU.
+Memory Bus in Atomic Operations
+During atomic operations, the memory bus may be temporarily locked to ensure exclusive access to a memory location. This prevents other CPUs or devices from interfering with the operation, ensuring atomicity.
+2. Cache Line
+A cache line is the smallest unit of data that can be transferred between the CPU cache and main memory. It is a contiguous block of memory, typically 32 to 128 bytes, used to optimize memory access.
+
+How Cache Lines Work
+Data Loading:
+
+When the CPU accesses a memory address, the entire cache line containing that address is loaded into the CPU cache.
+Example: If a cache line is 64 bytes and the CPU requests address 0x1000, memory addresses 0x1000 to 0x103F (64 bytes) are loaded into the cache.
+Spatial Locality:
+
+Since programs often access nearby memory addresses, caching entire lines improves performance by reducing memory access latency.
+Cache Line in Atomic Operations
+During atomic operations, the CPU ensures that no other core or thread can modify the same cache line.
+Cache coherency protocols (e.g., MESI) manage synchronization:
+If multiple cores attempt to access the same cache line, the protocol ensures only one has write access at a time.
+
+
+
+
