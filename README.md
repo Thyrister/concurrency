@@ -642,7 +642,13 @@ In this way, the CPU, memory bus, kernel and user space, and locks work together
 
 
 
+## Spurious Wakeups of Threads:
 
+A spurious wakeup occurs when a thread, which is waiting on a condition or synchronization primitive (like a mutex or a condition variable), is awakened without any explicit signal or notification from other threads. Essentially, a thread can wake up even though the condition it is waiting for has not been met.
+This can happen in multi-threaded environments for various reasons, often related to the underlying system's implementation of synchronization primitives.
+
+
+ 
 
 
 
