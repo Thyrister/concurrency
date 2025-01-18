@@ -548,6 +548,102 @@ During atomic operations, the CPU ensures that no other core or thread can modif
 Cache coherency protocols (e.g., MESI) manage synchronization:
 If multiple cores attempt to access the same cache line, the protocol ensures only one has write access at a time.
 
+## Deadlocks
+Deadlocks are situtation when process1 has hold resource1 and requesting for resource2, but resource2 has been hold by process2 and process2 is requesting resource1.
+Such conditions lead to deadlock as both process are requesting resources hold by each other respectively.
+
+
+Below are some common methods to deal with deadlocks,
+ Deadlock Avoidance
+Goal: Prevent the system from entering an unsafe state where a deadlock could occur.
+Approach: The system analyzes resource allocation requests in advance and ensures that granting a request does not lead to a deadlock.
+Key Technique:
+Use the Banker’s Algorithm:
+Before allocating a resource, the system checks if fulfilling the request will still allow the system to remain in a safe state.
+A safe state is one where all processes can complete without deadlock by potentially waiting.
+Trade-offs:
+Requires knowledge of future resource requests, which is not always feasible.
+Increases system overhead due to frequent checks.
+Example: A process cannot proceed if granting its resource request would leave the system in a state where another process cannot complete.
+
+
+
+2. Deadlock Prevention
+Goal: Eliminate one or more necessary conditions for deadlock.
+Approach: Modify the system or resource allocation policies to prevent the four necessary conditions for deadlock:
+Mutual Exclusion: Resources cannot be shared (e.g., printers).
+Make resources sharable if possible.
+Hold and Wait: A process holds resources while waiting for others.
+Require processes to request all resources at once or release resources before requesting new ones.
+No Preemption: Resources cannot be forcibly removed.
+Allow preemption, i.e., take resources from a process and assign them to others.
+Circular Wait: Processes are waiting in a circular chain.
+Impose a global ordering on resource allocation to break the cycle.
+Trade-offs:
+May lead to reduced resource utilization.
+Processes may face starvation due to overly restrictive policies.
+
+
+
+3. Deadlock Detection and Recovery
+Goal: Allow deadlocks to occur but detect and resolve them when they happen.
+Approach:
+The system periodically checks for deadlocks using algorithms like:
+Wait-for Graphs: If a cycle is detected, a deadlock exists.
+Once detected, take recovery measures such as:
+Terminate Processes: Abort one or more processes to break the deadlock.
+Preempt Resources: Take resources away from some processes to allow others to proceed.
+Trade-offs:
+Requires system overhead for periodic checks.
+Termination or resource preemption can lead to data loss or inconsistency.
+Example: Operating systems like UNIX may periodically run deadlock detection routines to identify and handle deadlocks.
+
+
+
+4. Deadlock Ignorance
+Goal: Ignore the problem of deadlocks altogether.
+Approach: Assume deadlocks are rare and let them occur without taking specific measures to prevent or detect them.
+Rationale:
+In many systems (e.g., most general-purpose operating systems like Windows or Linux), deadlocks are considered infrequent and are left to the user or administrator to resolve (e.g., by restarting the system or killing processes).
+Trade-offs:
+Simplifies system design and reduces overhead.
+May lead to system hangs or require manual intervention in case of a deadlock.
+Example: Most desktop operating systems use this approach, relying on users to deal with deadlocks by forcefully terminating processes.
+
+
+## Banker's Algorithm
+The banker alogrithm is used to avoid/prevent/detect deadlock in system.
+
+Youtbe - https://youtu.be/7gMLNiEz3nw?si=Ct2ghP2MfgIOQtgP
+
+## Peterson Algorithm (Imp)
+Algorithm to access the shared resource between 2 process without performing the atomic operations.
+Peterson algorithm is humble algorithm which allows the another process first to enter the critical section, and waits itself.
+
+Youtube - https://www.youtube.com/watch?v=gYCiTtgGR5Q&t=1145s
+
+
+## What happens when we start a process
+Summary of Process Execution Flow
+
+Process Creation: The OS allocates virtual memory (user space) and kernel memory (for the PCB, page table, etc.).
+
+CPU Execution in User Mode: The CPU runs instructions in the user space (e.g., code segment, heap, stack) and uses virtual memory translated by the MMU.
+
+System Call / Interrupt: The process makes a system call, causing the CPU to switch to kernel mode and use the kernel stack and other kernel resources.
+
+Memory Management: The MMU handles the translation of virtual addresses to physical addresses, possibly using the memory bus to fetch data from physical RAM or swap space.
+
+Shared Resources and Locks: If the process needs access to shared resources, it acquires the necessary locks. If the resource is locked by another process, it waits or spins until it can acquire the lock.
+
+Context Switching: If the process is preempted, the CPU saves the process state in the PCB, and another process may execute, with its own state loaded from its PCB.
+
+In this way, the CPU, memory bus, kernel and user space, and locks work together to manage execution, memory access, and synchronization of processes in a multitasking system.
+
+
+
+
+
 
 
 
