@@ -626,17 +626,17 @@ Youtube - https://www.youtube.com/watch?v=gYCiTtgGR5Q&t=1145s
 ## What happens when we start a process
 Summary of Process Execution Flow
 
-Process Creation: The OS allocates virtual memory (user space) and kernel memory (for the PCB, page table, etc.).
+1. Process Creation: The OS allocates virtual memory (user space) and kernel memory (for the PCB, page table, etc.).
 
-CPU Execution in User Mode: The CPU runs instructions in the user space (e.g., code segment, heap, stack) and uses virtual memory translated by the MMU.
+2. CPU Execution in User Mode: The CPU runs instructions in the user space (e.g., code segment, heap, stack) and uses virtual memory translated by the MMU.
 
-System Call / Interrupt: The process makes a system call, causing the CPU to switch to kernel mode and use the kernel stack and other kernel resources.
+3. System Call / Interrupt: The process makes a system call, causing the CPU to switch to kernel mode and use the kernel stack and other kernel resources.
 
-Memory Management: The MMU handles the translation of virtual addresses to physical addresses, possibly using the memory bus to fetch data from physical RAM or swap space.
+4. Memory Management: The MMU handles the translation of virtual addresses to physical addresses, possibly using the memory bus to fetch data from physical RAM or swap space.
 
-Shared Resources and Locks: If the process needs access to shared resources, it acquires the necessary locks. If the resource is locked by another process, it waits or spins until it can acquire the lock.
+5. Shared Resources and Locks: If the process needs access to shared resources, it acquires the necessary locks. If the resource is locked by another process, it waits or spins until it can acquire the lock.
 
-Context Switching: If the process is preempted, the CPU saves the process state in the PCB, and another process may execute, with its own state loaded from its PCB.
+6. Context Switching: If the process is preempted, the CPU saves the process state in the PCB, and another process may execute, with its own state loaded from its PCB.
 
 In this way, the CPU, memory bus, kernel and user space, and locks work together to manage execution, memory access, and synchronization of processes in a multitasking system.
 
