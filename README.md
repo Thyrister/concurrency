@@ -651,7 +651,32 @@ This can happen in multi-threaded environments for various reasons, often relate
 
 
  
+## When to use CAS/Test-Set/Atmoic/Mutex/Semaphores
 
+If you want to avoid writing low-level atomic methods manually (like Compare-and-Swap or Test-and-Set):
 
+Use compiler intrinsics like __sync_bool_compare_and_swap or __sync_lock_test_and_set.
+These intrinsics internally translate to atomic CPU instructions, providing a low-level yet easier interface.
+If you want to avoid even using low-level atomic methods:
+
+Use atomic variables from the <atomic> library in C++.
+Atomic variables abstract the need for explicit CAS or Test-and-Set operations. They provide higher-level, thread-safe operations directly.
+If you want to avoid atomic variables and require more generalized thread synchronization:
+
+Use mutexes, semaphores, or other synchronization primitives.
+These are better suited for complex scenarios, such as protecting access to larger critical sections or managing multiple resources.
+
+When to Choose What:
+Use CAS or Test-and-Set (manual or intrinsics):
+When writing custom synchronization mechanisms or lock-free data structures.
+Example: Implementing your own spinlock or lock-free queue.
+
+Use Atomic Variables (std::atomic):
+When you need lightweight, thread-safe operations on variables.
+Example: Incrementing a shared counter or updating a flag in a multi-threaded program.
+
+Use Mutexes/Semaphores:
+When protecting access to complex critical sections or ensuring resource sharing between threads.
+Example: Synchronizing access to a shared file or database.
 
 
