@@ -5,7 +5,7 @@ Resources:
 ### 1. [Watch the video on YouTube](https://www.youtube.com/watch?v=Fn0xBsmact4&list=PLvv0ScY6vfd_ocTP2ZLicgqKnvq50OCXM)
 ### 2. [Github.com](https://github.com/methylDragon/coding-notes/blob/master/C++)
 
-### 3. [Medium.com] (https://medium.com/@yc-kuo)
+### 3. [Medium.com Must Read](https://medium.com/@yc-kuo)
 ---
 
 ## Difference between Concurrency (Multiprogramming) and Parallelism (Multiprocessing)
