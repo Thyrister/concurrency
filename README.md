@@ -288,6 +288,7 @@ int main() {
 
 ```
 
+---
 
 ## Example: SFML Grid Update with Threads
 Here’s an example that uses threads to update a grid and draw shapes in SFML.
@@ -378,7 +379,7 @@ int main() {
     return 0;
 }
 ```
-
+---
 
 ## Semaphores
 They are quite similar to mutex used as synchronization tool for multithreading to access the shared resources.
@@ -451,6 +452,7 @@ int main() {
     return 0;
 }
 ```
+---
 
 ## Type of locks to handle concurrency
 
@@ -466,15 +468,15 @@ int main() {
 10. Semaphores
 11. Distributed Lock
 
-
+---
 
 ## Locking and Unlocking
 
-Atomic Operations - The operations which cant be divisible further.
+### **Atomic Operations - The operations which cant be divisible further.** ###
 
 Modern CPUs provide hardware support to make locking efficient and avoid race conditions:
 
-Atomic Instructions:
+### **Atomic Instructions:** ###
 Operations like compare-and-swap (CAS), test-and-set, or fetch-and-add are used to manipulate the lock variable atomically, ensuring no two threads can modify it simultaneously.
 
 Memory Barriers (Fences):
