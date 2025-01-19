@@ -4,6 +4,8 @@ Resources:
 
 1. [Watch the video on YouTube](https://www.youtube.com/watch?v=Fn0xBsmact4&list=PLvv0ScY6vfd_ocTP2ZLicgqKnvq50OCXM)
 2. https://github.com/methylDragon/coding-notes/blob/master/C++/07%20C++%20-%20Threading%20and%20Concurrency.md
+
+3. Resource for practical examples of concurrency (Must Read) - https://medium.com/@yc-kuo
 ---
 
 ## Difference between Concurrency (Multiprogramming) and Parallelism (Multiprocessing)
